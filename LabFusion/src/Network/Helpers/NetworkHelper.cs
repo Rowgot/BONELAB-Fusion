@@ -39,11 +39,29 @@ public static class NetworkHelper
     }
 
     /// <summary>
-    /// Pushes an update to the lobby metadata.
+    /// Attempts to join a server given a server code.
     /// </summary>
-    public static void UpdateLobby()
+    /// <param name="code"></param>
+    public static void JoinServerByCode(string code)
     {
-        InternalLayerHelpers.OnUpdateLobby();
+        NetworkInfo.CurrentNetworkLayer?.JoinServerByCode(code);
+    }
+
+    /// <summary>
+    /// Gets the code of the current server.
+    /// </summary>
+    /// <returns>The server code.</returns>
+    public static string GetServerCode()
+    {
+        return NetworkInfo.CurrentNetworkLayer.GetServerCode();
+    }
+
+    /// <summary>
+    /// Generates a new server code.
+    /// </summary>
+    public static void RefreshServerCode()
+    {
+        NetworkInfo.CurrentNetworkLayer.RefreshServerCode();
     }
 
     /// <summary>
@@ -116,7 +134,7 @@ public static class NetworkHelper
             return;
         }
 
-        BanList.Ban(id.LongId, id.Metadata.GetMetadata(MetadataHelper.UsernameKey), "Banned");
+        BanManager.Ban(new PlayerInfo(id), "Banned");
         ConnectionSender.SendDisconnect(id, "Banned from Server");
     }
 
@@ -132,10 +150,12 @@ public static class NetworkHelper
             return false;
 
         // Check the ban list
-        foreach (var tuple in BanList.BannedUsers)
+        foreach (var ban in BanManager.BanList.Bans)
         {
-            if (tuple.Item1 == longId)
+            if (ban.Player.LongId == longId)
+            {
                 return true;
+            }
         }
 
         return false;
@@ -147,6 +167,6 @@ public static class NetworkHelper
     /// <param name="longId"></param>
     public static void PardonUser(ulong longId)
     {
-        BanList.Pardon(longId);
+        BanManager.Pardon(longId);
     }
 }

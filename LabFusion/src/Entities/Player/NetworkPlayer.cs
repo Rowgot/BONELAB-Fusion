@@ -11,6 +11,7 @@ using LabFusion.Representation;
 using LabFusion.Utilities;
 using LabFusion.Scene;
 using LabFusion.Preferences;
+using LabFusion.Preferences.Server;
 using LabFusion.Voice;
 
 using MelonLoader;
@@ -78,8 +79,6 @@ public class NetworkPlayer : IEntityExtender, IMarrowEntityExtender, IEntityUpda
 
     private bool _isSettingsDirty = false;
     private bool _isServerDirty = false;
-
-    private bool _isQuestUser = false;
 
     public SerializedPlayerSettings playerSettings = null;
 
@@ -258,7 +257,7 @@ public class NetworkPlayer : IEntityExtender, IMarrowEntityExtender, IEntityUpda
         PlayerId.Metadata.OnMetadataChanged += OnMetadataChanged;
         PlayerId.OnDestroyedEvent += OnPlayerDestroyed;
 
-        MultiplayerHooking.OnServerSettingsChanged += OnServerSettingsChanged;
+        LobbyInfoManager.OnLobbyInfoChanged += OnServerSettingsChanged;
         FusionOverrides.OnOverridesChanged += OnServerSettingsChanged;
 
         // Find the rig for the current scene, and hook into scene loads
@@ -275,7 +274,7 @@ public class NetworkPlayer : IEntityExtender, IMarrowEntityExtender, IEntityUpda
         PlayerId.Metadata.OnMetadataChanged -= OnMetadataChanged;
         PlayerId.OnDestroyedEvent -= OnPlayerDestroyed;
 
-        MultiplayerHooking.OnServerSettingsChanged -= OnServerSettingsChanged;
+        LobbyInfoManager.OnLobbyInfoChanged -= OnServerSettingsChanged;
         FusionOverrides.OnOverridesChanged -= OnServerSettingsChanged;
 
         // Remove cache
@@ -315,12 +314,10 @@ public class NetworkPlayer : IEntityExtender, IMarrowEntityExtender, IEntityUpda
             _username = name;
         }
 
-        _isQuestUser = PlayerId.Metadata.GetMetadata(MetadataHelper.PlatformKey) == "QUEST";
-
         // Update nametag
         if (!NetworkEntity.IsOwner)
         {
-            _nametag.SetUsername(Username, _isQuestUser);
+            _nametag.SetUsername(Username);
 
             if (HasRig)
             {
@@ -618,7 +615,7 @@ public class NetworkPlayer : IEntityExtender, IMarrowEntityExtender, IEntityUpda
 
     private void UpdateNametagVisibility()
     {
-        _nametag.Visible = CommonPreferences.NametagsEnabled && FusionOverrides.ValidateNametag(PlayerId);
+        _nametag.Visible = CommonPreferences.NameTags && FusionOverrides.ValidateNametag(PlayerId);
     }
 
     public void OnEntityCull(bool isInactive)

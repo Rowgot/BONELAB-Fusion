@@ -1,6 +1,7 @@
 ﻿using LabFusion.Data;
 using LabFusion.Exceptions;
 using LabFusion.SDK.Gamemodes;
+using LabFusion.SDK.Modules;
 
 namespace LabFusion.Network;
 
@@ -62,7 +63,9 @@ public class DynamicsAssignMessage : FusionMessageHandler
     public override void HandleMessage(byte[] bytes, bool isServerHandled = false)
     {
         if (NetworkInfo.IsServer || isServerHandled)
+        {
             throw new ExpectedClientException();
+        }
 
         using FusionReader reader = FusionReader.Create(bytes);
         var data = reader.ReadFusionSerializable<DynamicsAssignData>();

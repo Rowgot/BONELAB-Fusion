@@ -4,6 +4,7 @@ using LabFusion.Data;
 using LabFusion.Extensions;
 using LabFusion.Network;
 using LabFusion.Preferences;
+using LabFusion.Preferences.Server;
 using LabFusion.Player;
 using LabFusion.Representation;
 using LabFusion.SDK.Gamemodes;
@@ -108,7 +109,7 @@ public static class FusionPlayer
         {
             if (PlayerIdManager.LocalId != null && PlayerIdManager.LocalId.TryGetPermissionLevel(out var level))
             {
-                var requirement = ServerSettingsManager.ActiveSettings.CustomAvatarsAllowed.Value;
+                var requirement = LobbyInfoManager.LobbyInfo.CustomAvatars;
 
                 if (!FusionPermissions.HasSufficientPermissions(level, requirement))
                 {
@@ -219,7 +220,7 @@ public static class FusionPlayer
         if (!NetworkInfo.HasServer)
             return;
 
-        SetMortality(CommonPreferences.IsMortal);
+        SetMortality(CommonPreferences.Mortality);
     }
 
     /// <summary>

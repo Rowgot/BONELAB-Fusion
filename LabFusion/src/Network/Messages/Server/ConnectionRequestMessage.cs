@@ -4,6 +4,7 @@ using LabFusion.Representation;
 using LabFusion.Utilities;
 using LabFusion.Scene;
 using LabFusion.Preferences;
+using LabFusion.Preferences.Server;
 using LabFusion.Senders;
 using LabFusion.Exceptions;
 using LabFusion.Entities;
@@ -79,7 +80,7 @@ public class ConnectionRequestMessage : FusionMessageHandler
         // Make sure the id isn't spoofed.
         if (NetworkInfo.IsSpoofed(data.longId))
         {
-            ConnectionSender.SendConnectionDeny(data.longId, "Nice try.");
+            ConnectionSender.SendConnectionDeny(data.longId, "Your player ID does not match the networked ID.");
             return;
         }
 
@@ -106,7 +107,7 @@ public class ConnectionRequestMessage : FusionMessageHandler
         }
 
         // Check if theres too many players
-        if (PlayerIdManager.PlayerCount >= byte.MaxValue || PlayerIdManager.PlayerCount >= ServerSettingsManager.SavedSettings.MaxPlayers.Value)
+        if (PlayerIdManager.PlayerCount >= byte.MaxValue || PlayerIdManager.PlayerCount >= SavedServerSettings.MaxPlayers.Value)
         {
             ConnectionSender.SendConnectionDeny(data.longId, "Server is full! Wait for someone to leave.");
             return;
@@ -157,22 +158,6 @@ public class ConnectionRequestMessage : FusionMessageHandler
         if (NetworkHelper.IsBanned(data.longId))
         {
             ConnectionSender.SendConnectionDeny(data.longId, "Banned from Server");
-            return;
-        }
-
-        // Check if Quest user
-        if (!ServerSettingsManager.SavedSettings.AllowQuestUsers.Value
-            && data.initialMetadata[MetadataHelper.PlatformKey] == "QUEST")
-        {
-            ConnectionSender.SendConnectionDeny(data.longId, "Quest users are blocked from this server.");
-            return;
-        }
-
-        // Check if PC user
-        if (!ServerSettingsManager.SavedSettings.AllowPCUsers.Value
-            && data.initialMetadata[MetadataHelper.PlatformKey] == "PC")
-        {
-            ConnectionSender.SendConnectionDeny(data.longId, "PC users are blocked from this server.");
             return;
         }
 
@@ -232,7 +217,7 @@ public class ConnectionRequestMessage : FusionMessageHandler
         }
 
         // Send the active server settings
-        FusionPreferences.SendServerSettings(data.longId);
+        LobbyInfoManager.SendLobbyInfo(data.longId);
 
         // SERVER CATCHUP
         // Catchup hooked events

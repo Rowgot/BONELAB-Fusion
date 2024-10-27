@@ -19,7 +19,9 @@ using LabFusion.Downloading.ModIO;
 using LabFusion.BoneMenu;
 using LabFusion.Downloading;
 using LabFusion.Marrow;
-using LabFusion.Patching;
+using LabFusion.Menu;
+using LabFusion.SDK.Modules;
+using LabFusion.Bonelab;
 
 #if DEBUG
 using LabFusion.Debugging;
@@ -30,8 +32,6 @@ using MelonLoader;
 using Il2CppSLZ.Bonelab;
 using Il2CppSLZ.Marrow.Warehouse;
 using Il2CppSLZ.Marrow;
-
-using ModuleHandler = LabFusion.SDK.Modules.ModuleHandler;
 
 namespace LabFusion;
 
@@ -45,10 +45,10 @@ public struct FusionVersion
     public const string VersionString = "0.0.0";
 #else
     public const byte VersionMajor = 1;
-    public const byte VersionMinor = 8;
+    public const byte VersionMinor = 9;
     public const short VersionPatch = 0;
 
-    public const string VersionString = "1.8.0";
+    public const string VersionString = "1.9.0";
 #endif
 }
 
@@ -90,11 +90,7 @@ public class FusionMod : MelonMod
         // Initialize data and hooks
         ByteRetriever.PopulateInitial();
         PDController.OnInitializeMelon();
-        ModuleHandler.Internal_HookAssemblies();
-        GamemodeRegistration.Internal_HookAssemblies();
         PointItemManager.HookEvents();
-
-        VoteKickHelper.Internal_OnInitializeMelon();
     }
 
     public override void OnInitializeMelon()
@@ -107,6 +103,9 @@ public class FusionMod : MelonMod
 
         // Load assetbundles
         FusionBundleLoader.OnBundleLoad();
+
+        // Register base modules
+        InitializeBaseModules();
 
         // Register our base handlers
         LevelDataHandler.OnInitializeMelon();
@@ -134,11 +133,12 @@ public class FusionMod : MelonMod
         };
         AssetWarehouse.OnReady(onReady);
 
-        // Patch manual HarmonyPatches
-        ManualPatcher.PatchAll(HarmonyInstance);
-
         // Create prefs
         FusionPreferences.OnInitializePreferences();
+
+        LobbyInfoManager.OnInitialize();
+
+        MenuCreator.OnInitializeMelon();
 
         // Initialize level loading
         FusionSceneManager.Internal_OnInitializeMelon();
@@ -149,6 +149,12 @@ public class FusionMod : MelonMod
 #if DEBUG
         FusionUnityLogger.OnInitializeMelon();
 #endif
+    }
+
+    private static void InitializeBaseModules()
+    {
+        ModuleManager.RegisterModule<MarrowModule>();
+        ModuleManager.RegisterModule<BonelabModule>();
     }
 
     public override void OnLateInitializeMelon()
@@ -202,14 +208,10 @@ public class FusionMod : MelonMod
         // Cleanup networking
         InternalLayerHelpers.OnCleanupLayer();
 
-        VoteKickHelper.Internal_OnDeinitializeMelon();
-
         // Backup files
         FusionFileLoader.OnDeinitializeMelon();
 
         // Unhook assembly loads
-        ModuleHandler.Internal_UnhookAssemblies();
-        GamemodeRegistration.Internal_UnhookAssemblies();
         PointItemManager.UnhookEvents();
 
         // Unload assetbundles
@@ -272,6 +274,9 @@ public class FusionMod : MelonMod
         // Force enable radial menu
         RigData.Refs.RigManager.ControllerRig.TryCast<OpenControllerRig>().quickmenuEnabled = true;
         PlayerRefs.Instance.PlayerBodyVitals.quickmenuEnabled = true;
+
+        // Create the Fusion Menu
+        MenuCreator.CreateMenu();
     }
 
     public override void OnUpdate()

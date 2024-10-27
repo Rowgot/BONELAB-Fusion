@@ -2,10 +2,12 @@
 using LabFusion.Representation;
 using LabFusion.Utilities;
 using LabFusion.Preferences;
+using LabFusion.Preferences.Server;
 
 using LabFusion.SDK.Gamemodes;
 using LabFusion.SDK.Points;
 using LabFusion.SDK.Achievements;
+using LabFusion.SDK.Modules;
 
 using LabFusion.Data;
 using LabFusion.Entities;
@@ -112,9 +114,6 @@ public static class InternalServerHelpers
         DisposeUsers();
         NetworkEntityManager.OnCleanupEntities();
 
-        // Cleanup prefs
-        ServerSettingsManager.OnReceiveHostSettings(null);
-
         // Update hooks
         MultiplayerHooking.Internal_OnDisconnect();
 
@@ -216,9 +215,6 @@ public static class InternalServerHelpers
 
             // Permission
             { MetadataHelper.PermissionKey, NetworkInfo.IsServer ? PermissionLevel.OWNER.ToString() : PermissionLevel.DEFAULT.ToString() },
-
-            // Platform
-            { MetadataHelper.PlatformKey, PlatformHelper.GetPlatformName() },
         };
 
         return metadata;

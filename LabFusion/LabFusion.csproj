@@ -127,10 +127,67 @@
     <None Remove="FusionBundles\Assets\FusionMarrow.meta" />
     <None Remove="FusionBundles\Assets\FusionProxies.meta" />
     <None Remove="FusionBundles\Assets\FusionProxies\Runtime.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Keyboard.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Keyboard\Keyboard.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Keyboard\KeyboardButton.cs.meta" />
     <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Machines.meta" />
     <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Machines\AchievementBoard.cs.meta" />
     <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Machines\BitMart.cs.meta" />
     <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Machines\InfoBoard.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\BoolButton.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\ButtonGroup.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\DropdownButton.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\BoolElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\ButtonElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\DropdownElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\EnumElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\FloatElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\FunctionElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\Generic.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\Generic\BoolElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\Generic\ButtonElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\Generic\DropdownElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\Generic\EnumElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\Generic\FloatElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\Generic\FunctionElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\Generic\GroupElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\Generic\IntElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\Generic\LabelElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\Generic\PageElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\Generic\StringElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\Generic\ValueElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\GroupElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\IntElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\LabelElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\LobbyElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\LobbyResultElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\MenuElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\PageElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\PlayerElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\PlayerResultElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\StringElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Elements\ValueElement.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\FloatButton.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\FunctionButton.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\HoldButton.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\IntButton.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Labels.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Labels\LevelNameLabel.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\MenuButton.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\MenuGroup.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\MenuPage.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Panels.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Panels\LobbyPanel.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Popups.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Popups\MenuPopups.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Popups\MenuToolbar.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\PreferencesPanelProxy.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Scrolling.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Scrolling\ScrollButtonProxy.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\Scrolling\ScrollRectController.cs.meta" />
+    <None Remove="FusionBundles\Assets\FusionProxies\Runtime\Menu\StringButton.cs.meta" />
     <None Remove="FusionBundles\Assets\marrow-integration.meta" />
     <None Remove="FusionBundles\Assets\marrow-integration\Editor.meta" />
     <None Remove="FusionBundles\Assets\marrow-integration\Runtime.meta" />
@@ -187,6 +244,7 @@
     <None Remove="FusionHelper\steam_api64.dll" />
     <None Remove="src\Downloading\ModIO\ModReferences.cs~RF2566c200.TMP" />
     <None Remove="src\Marrow\Audio\AudioReference.cs~RF202ddfa1.TMP" />
+    <None Remove="src\Menu\MenuPageHelper.cs~RF7c939358.TMP" />
     <None Remove="src\SDK\Gamemodes\Music\MusicPlaylist.cs~RF2046160e.TMP" />
   </ItemGroup>
 
@@ -279,9 +337,6 @@
     <Reference Include="Il2CppURPUnsafe">
       <HintPath>$(BONELAB_DIR)\MelonLoader\Il2CppAssemblies\Il2CppURPUnsafe.dll</HintPath>
     </Reference>
-    <Reference Include="Il2CppWave.OpenXR">
-      <HintPath>$(BONELAB_DIR)\MelonLoader\Il2CppAssemblies\Il2CppWave.OpenXR.dll</HintPath>
-    </Reference>
     <Reference Include="Il2Cppwebsocket-sharp">
       <HintPath>$(BONELAB_DIR)\MelonLoader\Il2CppAssemblies\Il2Cppwebsocket-sharp.dll</HintPath>
     </Reference>
@@ -323,6 +378,9 @@
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(BONELAB_DIR)\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>$(BONELAB_DIR)\MelonLoader\Il2CppAssemblies\UnityEngine.ImageConversionModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
       <HintPath>$(BONELAB_DIR)\MelonLoader\Il2CppAssemblies\UnityEngine.IMGUIModule.dll</HintPath>

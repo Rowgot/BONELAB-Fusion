@@ -3,7 +3,7 @@
 using LabFusion.Data;
 using LabFusion.Extensions;
 using LabFusion.Network;
-using LabFusion.Preferences;
+using LabFusion.Preferences.Server;
 using LabFusion.Player;
 using LabFusion.Representation;
 using LabFusion.Senders;
@@ -65,7 +65,7 @@ public static partial class BoneMenuCreator
         byte smallId = id.SmallId;
 
         // Set permission display
-        if (NetworkInfo.IsServer && !id.IsOwner)
+        if (NetworkInfo.IsServer && !id.IsMe)
         {
             var permSetter = category.CreateEnum($"Permissions", Color.yellow, level, (v) =>
             {
@@ -104,62 +104,6 @@ public static partial class BoneMenuCreator
 
         // Get self permissions
         FusionPermissions.FetchPermissionLevel(PlayerIdManager.LocalLongId, out var selfLevel, out _);
-
-        var serverSettings = ServerSettingsManager.ActiveSettings;
-
-        // Create vote options
-        if (!id.IsOwner && FusionPermissions.HasSufficientPermissions(selfLevel, level))
-        {
-            var votingCategory = category.CreatePage("Voting", Color.white);
-
-            // Vote kick
-            if (serverSettings.VoteKickingEnabled.Value)
-            {
-                votingCategory.CreateFunction("Vote Kick", Color.red, () =>
-                {
-                    PlayerSender.SendVoteKickRequest(id);
-                });
-            }
-        }
-
-        // Create moderation options
-        // If we are the server then we have full auth. Otherwise, check perm level
-        if (!id.IsOwner && (NetworkInfo.IsServer || FusionPermissions.HasHigherPermissions(selfLevel, level)))
-        {
-            var moderationCategory = category.CreatePage("Moderation", Color.white);
-
-            // Kick button
-            if (FusionPermissions.HasSufficientPermissions(selfLevel, serverSettings.KickingAllowed.Value))
-            {
-                moderationCategory.CreateFunction("Kick", Color.red, () =>
-                {
-                    PermissionSender.SendPermissionRequest(PermissionCommandType.KICK, id);
-                });
-            }
-
-            // Ban button
-            if (FusionPermissions.HasSufficientPermissions(selfLevel, serverSettings.BanningAllowed.Value))
-            {
-                moderationCategory.CreateFunction("Ban", Color.red, () =>
-                {
-                    PermissionSender.SendPermissionRequest(PermissionCommandType.BAN, id);
-                });
-            }
-
-            // Teleport buttons
-            if (FusionPermissions.HasSufficientPermissions(selfLevel, serverSettings.Teleportation.Value))
-            {
-                moderationCategory.CreateFunction("Teleport To Them", Color.red, () =>
-                {
-                    PermissionSender.SendPermissionRequest(PermissionCommandType.TELEPORT_TO_THEM, id);
-                });
-
-                moderationCategory.CreateFunction("Teleport To Us", Color.red, () =>
-                {
-                    PermissionSender.SendPermissionRequest(PermissionCommandType.TELEPORT_TO_US, id);
-                });
-            }
-        }
 
         category.CreateFunction($"Platform ID: {longId}", Color.yellow, () =>
         {

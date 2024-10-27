@@ -7,19 +7,22 @@ using UnityEngine;
 
 namespace LabFusion.Preferences.Client;
 
-public struct ClientSettings
+public static class ClientSettings
 {
     // Selected network layer
     public static FusionPref<string> NetworkLayerTitle { get; internal set; }
     public static FusionPref<int> ProxyPort { get; internal set; }
 
     // Nametag settings
-    public static FusionPref<bool> NametagsEnabled { get; internal set; }
-    public static FusionPref<Color> NametagColor { get; internal set; }
+    public static FusionPref<bool> NameTags { get; internal set; }
+    public static FusionPref<Color> NameTagColor { get; internal set; }
 
     // Nickname settings
     public static FusionPref<string> Nickname { get; internal set; }
     public static FusionPref<NicknameVisibility> NicknameVisibility { get; internal set; }
+
+    // Description settings
+    public static FusionPref<string> Description { get; internal set; }
 
     public static VoiceChatSettings VoiceChat { get; private set; }
 
@@ -35,12 +38,15 @@ public struct ClientSettings
         ProxyPort = new FusionPref<int>(category, "Proxy Port", 28340, PrefUpdateMode.IGNORE);
 
         // Nametag
-        NametagsEnabled = new FusionPref<bool>(category, "Client Nametags Enabled", true, PrefUpdateMode.LOCAL_UPDATE);
-        NametagColor = new FusionPref<Color>(category, "Nametag Color", Color.white, PrefUpdateMode.CLIENT_UPDATE);
+        NameTags = new FusionPref<bool>(category, "Client Nametags Enabled", true, PrefUpdateMode.SERVER_UPDATE);
+        NameTagColor = new FusionPref<Color>(category, "Nametag Color", Color.white, PrefUpdateMode.CLIENT_UPDATE);
 
         // Nickname
         Nickname = new FusionPref<string>(category, "Nickname", string.Empty, PrefUpdateMode.IGNORE);
-        NicknameVisibility = new FusionPref<NicknameVisibility>(category, "Nickname Visibility", Senders.NicknameVisibility.SHOW_WITH_PREFIX, PrefUpdateMode.LOCAL_UPDATE);
+        NicknameVisibility = new FusionPref<NicknameVisibility>(category, "Nickname Visibility", Senders.NicknameVisibility.SHOW_WITH_PREFIX, PrefUpdateMode.SERVER_UPDATE);
+
+        // Description
+        Description = new FusionPref<string>(category, "Description", string.Empty, PrefUpdateMode.IGNORE);
 
         VoiceChat = new VoiceChatSettings();
         VoiceChat.CreatePrefs(category);
